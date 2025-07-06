@@ -9,11 +9,11 @@ require "config.php";
 
 // ✅ Ensure session is valid
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: login.php");
+    header("Location: login.html");
     exit();
 }
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: login.php");
+    header("Location: login.html");
     exit();
 }
 // ✅ Get user data
