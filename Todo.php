@@ -1,4 +1,9 @@
 <?php
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 session_start();
 require "config.php";
 
@@ -7,7 +12,10 @@ if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
     header("Location: login.php");
     exit();
 }
-
+if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
+    header("Location: login.php");
+    exit();
+}
 // ✅ Get user data
 $username = $_SESSION['username'];
 $email = $_SESSION['email'];
@@ -249,7 +257,11 @@ if ($resultTasks && mysqli_num_rows($resultTasks) > 0) {
 }
 ?>
   </section>
-
+  <script>// Optional: Prevent going back to todo.php from browser cache
+  if (!performance.navigation || performance.navigation.type === 2) {
+    location.reload(true);
+  }
+</script>
   <script src="todo.js"></script>
 </body>
 </html>
