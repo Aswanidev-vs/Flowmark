@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding: 1rem;
+    }
+
+    .form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1.2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .form label {
+      font-size: 1rem;
+      color: #111;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .form input[type="text"],
+    .form input[type="email"],
+    .form input[type="password"] {
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 0.6rem;
+      font-size: 1rem;
+      background: #fafafa;
+      color: #111;
+      width: 100%;
+    }
+
+    .form input:focus {
+      border-color: #111;
+      outline: none;
+      background: #fff;
+    }
+
+    .form button {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: #111;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .form button:hover {
+      background: #222;
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .login-link {
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: #111;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 5px;
+      transition: color 0.2s;
+    }
+
+    .login-link a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .form {
+        padding: 1.5rem 1rem;
+      }
+
+      .form h2 {
+        font-size: 1.5rem;
+      }
+
+      .form button {
+        font-size: 0.95rem;
+      }
+
+      .checkbox-container {
+        font-size: 0.9rem;
+      }
+
+      .login-link {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form class="form" method="POST" action="signup.php" onsubmit="return validateForm()">
+    <h2>Sign Up</h2>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="pwd">Password</label>
+    <input type="password" name="pwd" id="pwd" placeholder="At least 8 characters" required>
+
+    <div class="checkbox-container">
+      <input type="checkbox" id="showPwd" onclick="togglePasswordVisibility()">
+      <label for="showPwd">Show Password</label>
+    </div>
+
+    <label for="confirm_pwd">Confirm Password</label>
+    <input type="password" name="confirm_pwd" id="confirm_pwd" placeholder="Re-enter password" required>
+
+    <button type="submit" name="submit">Sign Up</button>
+
+    <div class="login-link">
+      Already have an account?
+      <a href="login.html">Login</a>
+    </div>
+  </form>
+
+  <script>
+    function togglePasswordVisibility() {
+      const pwdField = document.getElementById("pwd");
+      const confirmPwdField = document.getElementById("confirm_pwd");
+      const isVisible = pwdField.type === "text";
+
+      pwdField.type = isVisible ? "password" : "text";
+      confirmPwdField.type = isVisible ? "password" : "text";
+    }
+
+    function validateForm() {
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const pwd = document.getElementById("pwd").value;
+      const confirmPwd = document.getElementById("confirm_pwd").value;
+
+      if (!username || !email || !pwd || !confirmPwd) {
+        alert("Please fill in all fields.");
+        return false;
+      }
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Please enter a valid email.");
+        return false;
+      }
+
+      if (pwd !== confirmPwd) {
+        alert("Passwords do not match.");
+        return false;
+      }
+
+      if (pwd.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return false;
+      }
+
+      let hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
+      for (let i = 0; i < pwd.length; i++) {
+        const ch = pwd[i];
+        if (ch >= 'A' && ch <= 'Z') hasUpper = true;
+        else if (ch >= 'a' && ch <= 'z') hasLower = true;
+        else if (ch >= '0' && ch <= '9') hasDigit = true;
+        else hasSpecial = true;
+      }
+
+      if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
+        alert("Password must include uppercase, lowercase, number, and special character.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
