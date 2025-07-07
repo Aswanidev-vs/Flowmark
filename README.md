@@ -109,3 +109,5 @@ Flowmark is a PHP-based To-Do List web application that allows users to sign up,
 - [styles.css](styles.css)  
 - [todo.css](todo.css)  
 - [todo.js](todo.js)
+- [current_account.php](current_account.php)
+- [delete_account.php](delete_account.php)
