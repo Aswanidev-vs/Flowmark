@@ -35,6 +35,8 @@ Flowmark is a PHP-based To-Do List web application that allows users to sign up,
 ├── change_password.php     # Change password (while logged in)
 ├── cpass.php               # Form and logic for changing password
 ├── update_user.php         # Update username (from settings)
+├── delete_account.php      # ✅ Handles account + task deletion after password confirmation
+├── current_password.php    # ✅ Form to confirm password before account deletion
 ├── config.php              # Database connection
 ├── styles.css              # Login/signup styles
 ├── todo.css                # Main app styles
@@ -43,6 +45,7 @@ Flowmark is a PHP-based To-Do List web application that allows users to sign up,
 ├── logo.jpg                # App logo
 ├── settings.png            # Settings icon
 └── .vscode/                # VSCode config
+
 ```
 
 ## Database Structure
