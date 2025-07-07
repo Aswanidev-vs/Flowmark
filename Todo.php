@@ -187,8 +187,27 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
           <button type="submit" name="save" class="save-btn">Save</button>
         </form>
         <form action="logout.php" method="POST" style="margin-top: 10px;">
-          <button type="submit" class="save-btn" style="background-color: #d32f2f;">Logout</button>
+          <button type="submit" class="save-btn" style="background-color:rgb(112, 112, 112);">Logout</button>
         </form>
+        <div class="delete-btn">
+    <form action="current_password.php" method="POST" style="margin-top: 10px;">
+        <button type="submit" class="daccount">Delete My Account</button>
+    </form>
+</div>
+<style>
+  .daccount{
+    background-color: #d32f2f;
+    border-radius:10px;
+    border:none;
+    color:white;
+    padding:5px 100px;
+      }
+    .daccount:hover{
+      
+        transform: translateY(-1px);
+    }
+</style>
+
       </div>
     </div>
   </header>
