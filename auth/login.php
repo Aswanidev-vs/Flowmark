@@ -7,7 +7,7 @@ if(isset($_POST['submit']))
     $pwd=$_POST['pwd'];
     $sql="select * from login where email='$email' and pwd='$pwd'";
     $result=mysqli_query($conn,$sql);
-    if(! $result){
+    if(!$result){
       echo  mysqli_error($conn);
     }
     else{
