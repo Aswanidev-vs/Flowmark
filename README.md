@@ -20,7 +20,7 @@
 ## 📁 Project Structure
 
 ```bash
-todov2/
+Flowmark/
 ├── home.html                     # ✅ Entry point (public landing page)
 ├── config/
 │   └── config.php
