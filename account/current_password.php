@@ -89,7 +89,7 @@ if (!isset($_SESSION['username'], $_SESSION['email'])) {
 <body>
     <div class="confirm-box">
         <h2>Confirm Your Password</h2>
-        <form action="delete_account.php" method="POST">
+<form action="../account/delete_account.php" method="POST">
             <input type="password" name="confirm_password" id="pwd" class="pwd-field" placeholder="Enter current password" required />
 
             <div style="margin-top: 8px; margin-bottom: 15px;">

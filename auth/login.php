@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config/config.php";
 session_start();
 if(isset($_POST['submit']))
 {
@@ -17,7 +17,7 @@ if(isset($_POST['submit']))
         $_SESSION['email']=$row['email'];
         $_SESSION['username']=$row['username'];
         $_SESSION['pwd']=$row['pwd'];
-        header("location:Todo.php");
+            header("location:../tasks/Todo.php");
     }
     else{
        echo "<script>

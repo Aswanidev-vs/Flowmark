@@ -1,8 +1,8 @@
 <?php
 session_start();
-require "config.php";
+require "../config/config.php";
 if (!isset($_SESSION['username']) || !isset($_SESSION['pwd'])) {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
 }else{
     if(isset($_POST['submit'])){
         

@@ -5,15 +5,16 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 session_start();
-require "config.php";
+require "../config/config.php";
+
 
 // ✅ Ensure session is valid
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: login.html");
+    header("Location: ../auth/login.html");
     exit();
 }
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: login.html");
+    header("Location: ../auth/login.html");
     exit();
 }
 // ✅ Get user data
@@ -65,7 +66,7 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flowmark - To-do List</title>
-  <link rel="stylesheet" href="todo.css">
+  <link rel="stylesheet" href="../public/assets/css/todo.css">
   <style>
     .task-name-list li {
       display: flex;
@@ -152,15 +153,15 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
 <body>
   <header>
     <div class="logo">
-      <img src="logo.jpg" alt="Logo" />
+      <img src="../public/assets/images/logo.jpg" alt="Logo" />
     </div>
     <h1>TO-DO LIST</h1>
     <div class="setting">
       <button class="setting-btn" onclick="toggleSetting()">
-        <img id="settingIconImg" src="settings.png" alt="Settings" />
+<img id="settingIconImg" src="../public/assets/images/settings.png" alt="Settings" />
       </button>
       <div class="settings-card" id="settings-card">
-        <form action="update_user.php" method="POST" enctype="multipart/form-data">
+<form action="../account/update_user.php" method="POST" enctype="multipart/form-data">
           <div class="setting-item">
             <label for="username">Name:</label>
             <input type="text" name="username" id="username" value="<?php echo $row['username']; ?>" />
@@ -173,7 +174,7 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
             <input type="checkbox" id="showPwd" onclick="togglePasswordVisibility()">
             <label for="showPwd">Show Password</label>
           </div>
-          <a href="change_password.php" style="text-decoration: none; color:white; margin-top:10px; gap:10px">change password</a>
+<a href="../password/change_password.php" style="text-decoration: none; color:white; margin-top:10px; gap:10px">change password</a>
         <script>
             function togglePasswordVisibility() {
                 var pass = document.getElementById("password");
@@ -186,11 +187,11 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
         </script>
           <button type="submit" name="save" class="save-btn">Save</button>
         </form>
-        <form action="logout.php" method="POST" style="margin-top: 10px;">
+<form action="../auth/logout.php" method="POST" style="margin-top: 10px;">
           <button type="submit" class="save-btn" style="background-color:rgb(112, 112, 112);">Logout</button>
         </form>
         <div class="delete-btn">
-    <form action="current_password.php" method="POST" style="margin-top: 10px;">
+<form action="../account/current_password.php" method="POST" style="margin-top: 10px;">
         <button type="submit" class="daccount">Delete My Account</button>
     </form>
 </div>
@@ -281,6 +282,6 @@ if ($resultTasks && mysqli_num_rows($resultTasks) > 0) {
     location.reload(true);
   }
 </script>
-  <script src="todo.js"></script>
+  <script src="../public/assets/js/todo.js"></script>
 </body>
 </html>

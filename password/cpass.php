@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "config.php";
+require "../config/config.php";
 if (!isset($_SESSION['email'])) {
     echo "Unauthorized access.";
     exit();
@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['pwd'] = $newPwd; 
         echo "<script>
         alert('password updated successfully.');
-        window.location.href = 'Todo.php';
+        window.location.href = '../tasks/Todo.php';
         </script>";
     } else {
         echo "Update failed.";
