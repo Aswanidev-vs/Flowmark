@@ -100,7 +100,7 @@ Clone or download this repo into your `htdocs/` folder (if using XAMPP).
 ### 4. Run Application
 - Start Apache and MySQL in XAMPP
 - Visit the app in your browser:  
-  👉 [http://localhost/todov2/home.html](http://localhost/todov2/home.html)
+  👉 [http://localhost/Flowmark/home.html](http://localhost/Flowmark/home.html)
 
 ---
 
