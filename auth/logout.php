@@ -26,7 +26,7 @@ session_destroy();
     }
 
     // Prevent back button caching by navigating to home
-    window.location.replace("home.html");
+    window.location.replace("../home.html");
 
   </script>
 </head>

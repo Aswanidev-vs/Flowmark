@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config/config.php";
 if(isset($_GET['taskid'])){
     $taskid=$_GET['taskid'];
     $sql="delete from task where taskid='$taskid'";

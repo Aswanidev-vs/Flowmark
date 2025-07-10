@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config/config.php";
 $sql="select * from task";
 $result=mysqli_query($conn,$sql);
 if(!$result){

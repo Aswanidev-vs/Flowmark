@@ -1,5 +1,5 @@
 <?php
-require "config.php"; // <--- Make sure this is added if missing
+require "../config/config.php"; // <--- Make sure this is added if missing
 session_start();
 
 // ✅ Ensure user is logged in and we have their user_id from session
@@ -20,7 +20,7 @@ if (isset($_POST['save'])) {
         // ✅ After successful update, update session values
         $_SESSION['username'] = $username;
  
-        header("Location: Todo.php");
+        header("Location: ../tasks/Todo.php");
         exit();
     } else {
         echo "Update failed: " . mysqli_error($conn);

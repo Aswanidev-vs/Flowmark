@@ -1,9 +1,9 @@
 <?php
-require "config.php";
+require "../config/config.php";
 session_start();
 
 if (!isset($_SESSION['username'], $_SESSION['email'])) {
-    header("Location: home.html");
+    header("Location: ../home.html");
     exit();
 }
 
@@ -43,7 +43,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             session_destroy();
           echo "<script>
     alert('Your account has been deleted.');
-    window.location.href = 'home.html';
+    window.location.href = '../home.html';
 </script>";
 exit();
 

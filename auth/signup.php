@@ -1,5 +1,5 @@
 <?php
-include "config.php";
+include "../config/config.php";
 
 if (isset($_POST['submit'])) {
     $username = trim($_POST['username']);
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     // ✅ Insert user (you can hash password if needed)
     $sql = "INSERT INTO login (username, email, pwd) VALUES ('$username', '$email', '$pwd')";
     if (mysqli_query($conn, $sql)) {
-        header("Location: login.html");
+        header("Location: ../auth/login.html");
         exit();
     } else {
         echo "Signup failed: " . mysqli_error($conn);

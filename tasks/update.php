@@ -6,10 +6,10 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Pragma: no-cache");
 session_start();
 if (!isset($_SESSION['email'])) {
-    header("Location: login.html");
+    header("Location: ../auth/login.html");
     exit();
 }
-require "config.php";
+require "../config/config.php";
 if(isset($_GET['taskid'])){
     $taskid=$_GET['taskid'];
     $sql="select * from task where taskid='$taskid'";
