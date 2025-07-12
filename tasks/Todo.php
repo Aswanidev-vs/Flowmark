@@ -4,8 +4,8 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-session_start();
 require "../config/config.php";
+session_start();
 
 
 // ✅ Ensure session is valid
@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
     exit();
 }
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: ../auth/login.html");
+    header("Location: ../auth/login.php");
     exit();
 }
 // ✅ Get user data
