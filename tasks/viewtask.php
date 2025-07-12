@@ -27,73 +27,80 @@ if ($result && mysqli_num_rows($result) > 0) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+      <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
     <title>View Task</title>
     <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        body {
-          font-family: 'Segoe UI', sans-serif;
-          background-color: #f0f2f5;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 100vh;
-          padding: 2rem;
-        }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
 
-        .task-container {
-          background: #fff;
-          padding: 2rem;
-          border-radius: 12px;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-          max-width: 500px;
-          width: 100%;
-        }
+.task-container {
+  background: #2a2a2a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  max-width: 520px;
+  width: 100%;
+}
 
-        .task-container h2 {
-          color: #333;
-          margin-bottom: 1rem;
-        }
+.task-container h2 {
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 
-        .task-detail {
-          margin-bottom: 1.2rem;
-        }
+.task-detail {
+  margin-bottom: 1.4rem;
+}
 
-        .task-detail label {
-          display: block;
-          font-weight: 600;
-          color: #555;
-          margin-bottom: 0.3rem;
-        }
+.task-detail label {
+  display: block;
+  font-weight: 600;
+  color: #bdbdbd;
+  margin-bottom: 0.4rem;
+}
 
-        .task-detail p {
-          font-size: 1rem;
-          color: #333;
-          background: #f9f9f9;
-          padding: 0.75rem;
-          border-radius: 8px;
-          border: 1px solid #ddd;
-          white-space: pre-wrap; /* preserves line breaks without nl2br */
-        }
+.task-detail p {
+  font-size: 1rem;
+  color: #e0e0e0;
+  background: #333;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
 
-        .back-btn {
-          display: inline-block;
-          margin-top: 1rem;
-          text-decoration: none;
-          color: #fff;
-          background: #111;
-          padding: 0.6rem 1.2rem;
-          border-radius: 8px;
-          transition: background 0.2s;
-        }
+.back-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #424242;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
 
-        .back-btn:hover {
-          background: #333;
-        }
+.back-btn:hover {
+  background-color: #616161;
+}
+
     </style>
 </head>
 <body>
