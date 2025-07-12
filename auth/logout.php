@@ -20,11 +20,6 @@ session_destroy();
   <meta charset="UTF-8">
   <title>Logging Out...</title>
   <script>
-    const email = "<?php echo $email; ?>";
-    if (email) {
-      localStorage.removeItem(`profilePic_${email}`);
-    }
-
     // Prevent back button caching by navigating to home
     window.location.replace("../home.html");
 
