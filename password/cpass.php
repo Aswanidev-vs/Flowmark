@@ -1,6 +1,6 @@
 <?php
-session_start();
 require "../config/config.php";
+session_start();
 if (!isset($_SESSION['email'])) {
     echo "Unauthorized access.";
     exit();
@@ -32,6 +32,10 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="icon"  type="image/png" href="../public/assets/images/logo.png">
     <meta charset="UTF-8">
     <title>change Password</title>
     <style>

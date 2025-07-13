@@ -10,7 +10,11 @@ if (!isset($_SESSION['username'], $_SESSION['email'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon"  type="image/png" href="../public/assets/images/logo.png">
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
     <title>Confirm Password</title>
     <style>
         body {

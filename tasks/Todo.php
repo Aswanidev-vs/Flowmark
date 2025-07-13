@@ -63,6 +63,7 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon"  type="image/png" href="../public/assets/images/logo.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
@@ -156,7 +157,7 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
 <body>
   <header>
     <div class="logo">
-      <img src="../public/assets/images/logo.jpg" alt="Logo" />
+      <img src="../public/assets/images/logo.png" alt="Logo" />
     </div>
     <h1>TO-DO LIST</h1>
     <div class="setting">

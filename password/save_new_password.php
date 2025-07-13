@@ -1,5 +1,5 @@
 <?php
-require "config.php";
+require "../config/config.php";
 session_start();
 
 if (!isset($_SESSION['reset_email'])) {
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
         unset($_SESSION['reset_email']);
         echo "<script>
         alert('password updated successfully.');
-        window.location.href = 'login.html';
+        window.location.href = '../auth/login.html';
         </script>";
     } else {
         echo "Update failed.";

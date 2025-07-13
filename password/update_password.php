@@ -8,6 +8,10 @@ if (!isset($_SESSION['reset_email'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="icon"  type="image/png" href="../public/assets/images/logo.png">
     <meta charset="UTF-8">
     <title>Update Password</title>
     <style>
