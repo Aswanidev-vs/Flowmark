@@ -3,7 +3,8 @@ require "../config/config.php";
 session_start();
 if (!isset($_SESSION['email'])) {
     echo "Unauthorized access.";
-    exit();
+    header("location:../auth/login.html");
+    // exit();
 }
 
 if (isset($_POST['submit'])) {
