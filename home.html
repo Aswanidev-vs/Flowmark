@@ -122,12 +122,44 @@
         font-size: 0.9rem;
       }
     }
+ .video {
+  max-width: 300px;
+  width: 90%;
+  margin: 40px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+@media (max-width: 480px) {
+  .video {
+    margin: 20px auto;
+  }
+
+  .video video {
+    max-height: 200px;
+  }
+}
+
+.use h1{
+  font-size: 40px;
+  font-family:'Times New Roman', Times, serif;
+  
+}
   </style>
 </head>
 <body>
   <header>
     <h1 class="header">TO-DO-LIST</h1>
     <div class="account-links">
+      <a href="about.html">about</a>
       <a href="auth/login.html">Login</a>
       <a href="auth/signup.html">Signup</a>
     </div>
@@ -142,14 +174,16 @@
     <div class="slide"><img src="public/assets/images/img4.jpg" alt="Filter"><p>Filter Tasks</p></div>
     <div class="slide"><img src="public/assets/images/img5.jpg" alt="Progress"><p>View Progress</p></div>
   </div>
-  
-  <script>
-    // Prevent going back to main.php after logout
-    history.pushState(null, "", location.href);
-    window.onpopstate = function () {
-      location.replace("home.html");
-    };
-  </script>
-  </body>
+<div class="use">
+  <h1>how to use ?</h1>
+  <div class="video">
+ <video controls width="100%">
+
+    <source src="public/assets/video/Flowmark.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+</div>
+
 </body>
 </html>
