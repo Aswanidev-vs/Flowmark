@@ -31,7 +31,8 @@ if ($result && mysqli_num_rows($result) > 0) {
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
     <title>View Task</title>
-    <style>
+     <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+        <style>
       * {
   margin: 0;
   padding: 0;

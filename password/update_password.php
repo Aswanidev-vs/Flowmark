@@ -10,6 +10,8 @@ if (!isset($_SESSION['reset_email'])) {
 <head>
     <meta charset="UTF-8">
     <title>Update Password</title>
+     <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+   
     <style>
      * {
       box-sizing: border-box;

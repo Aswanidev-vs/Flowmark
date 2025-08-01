@@ -24,6 +24,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['pwd'])) {
         <title>
             change password
         </title>
+          <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
         <style>
              
         * {

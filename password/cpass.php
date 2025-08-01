@@ -34,6 +34,8 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <title>change Password</title>
+      <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+   
     <style>
      * {
       box-sizing: border-box;

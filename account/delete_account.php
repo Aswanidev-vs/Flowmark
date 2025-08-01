@@ -3,7 +3,7 @@ require "../config/config.php";
 session_start();
 
 if (!isset($_SESSION['username'], $_SESSION['email'])) {
-    header("Location: ../home.html");
+    header("Location: home.html");
     exit();
 }
 
@@ -14,7 +14,7 @@ $entered_pwd = $_POST['confirm_password'] ?? '';
 if (empty($entered_pwd)) {
     echo "<script>
         alert('Please enter your current password.');
-        window.location.href='current_password.php';
+        window.location.href='../account/current_password.php';
     </script>";
     exit();
 }
@@ -50,19 +50,19 @@ exit();
         } else {
             echo "<script>
                 alert('Failed to delete account!');
-                window.location.href='Todo.php';
+                window.location.href='../tasks/Todo.php';
             </script>";
         }
     } else {
         echo "<script>
             alert('Incorrect password!');
-            window.location.href='current_password.php';
+            window.location.href='../account/current_password.php';
         </script>";
     }
 } else {
     echo "<script>
         alert('User not found!');
-        window.location.href='current_password.php';
+        window.location.href='../account/current_password.php';
     </script>";
 }
 ?>

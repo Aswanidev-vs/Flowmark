@@ -37,6 +37,8 @@ if (isset($_POST['submit'])) {
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Add Task with Voice Features</title>
+    <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+ 
   <style>
    * {
       box-sizing: border-box;

@@ -4,9 +4,9 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-session_start();
-require "../config/config.php";
 
+require "../config/config.php";
+session_start();
 
 // ✅ Ensure session is valid
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
     exit();
 }
 if (!isset($_SESSION['username'], $_SESSION['email'], $_SESSION['pwd'])) {
-    header("Location: ../auth/login.html");
+    header("Location: ../auth/login.php");
     exit();
 }
 // ✅ Get user data
@@ -70,6 +70,8 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
   <meta http-equiv="Expires" content="0">
   <title>Flowmark - To-do List</title>
   <link rel="stylesheet" href="../public/assets/css/todo.css">
+  <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+
   <style>
     .task-name-list li {
       display: flex;
@@ -156,7 +158,7 @@ $resultTasks = mysqli_query($conn, $sqlTasks);
 <body>
   <header>
     <div class="logo">
-      <img src="../public/assets/images/logo.jpg" alt="Logo" />
+      <img src="../public/assets/images/profile.png" alt="Logo" />
     </div>
     <h1>TO-DO LIST</h1>
     <div class="setting">

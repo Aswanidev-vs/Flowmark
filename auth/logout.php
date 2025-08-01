@@ -11,6 +11,16 @@ session_start();
 
 // Save email to use in localStorage cleanup
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
+
+// Destroy session completely
+$_SESSION = array();
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
 session_destroy();
 ?>
 
@@ -19,6 +29,7 @@ session_destroy();
 <head>
   <meta charset="UTF-8">
   <title>Logging Out...</title>
+    <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
   <script>
     const email = "<?php echo $email; ?>";
     if (email) {

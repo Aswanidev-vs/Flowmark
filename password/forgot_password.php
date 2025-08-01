@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Forgot Password</title>
+  <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+ 
   <style>
     * {
       box-sizing: border-box;

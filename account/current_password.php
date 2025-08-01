@@ -1,10 +1,21 @@
+
 <?php
 session_start();
+
+// Prevent back navigation after logout/deletion
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+// Redirect if session destroyed
 if (!isset($_SESSION['username'], $_SESSION['email'])) {
-    header("Location: login.html");
+    header("Location: ../home.html");
     exit();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -12,6 +23,8 @@ if (!isset($_SESSION['username'], $_SESSION['email'])) {
 <head>
     <meta charset="UTF-8">
     <title>Confirm Password</title>
+     <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
+   
     <style>
         body {
             background-color: #1f1f1f;
@@ -110,5 +123,13 @@ if (!isset($_SESSION['username'], $_SESSION['email'])) {
             }
         }
     </script>
+   <script>
+    window.onload = function () {
+        if (performance.navigation.type === 2) {
+            location.href = "../home.html";
+        }
+    };
+</script>
+
 </body>
 </html>
