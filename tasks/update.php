@@ -24,12 +24,23 @@ if(isset($_POST['submit'])){
     $taskname=$_POST['taskname'];
     $description=$_POST['description'];
     $status=$_POST['status'];
-   
-    $sql="UPDATE task set taskname='$taskname',description='$description',status='$status' where taskid='$taskid'";
+    
+    // Add priority and due_date to the update logic
+    $priority = $_POST['priority'];
+    $due_date = $_POST['due_date'];
+
+    // Updated SQL query to include priority and due_date
+    $sql="UPDATE task SET 
+            taskname='$taskname',
+            description='$description',
+            status='$status',
+            priority='$priority',
+            due_date='$due_date' 
+            WHERE taskid='$taskid'";
     $result=mysqli_query($conn,$sql);
     if($result){
     
-       header("location:Todo.php");
+        header("location:Todo.php");
     }
     else{
        echo mysqli_error($conn);
@@ -44,7 +55,7 @@ if(isset($_POST['submit'])){
   <meta http-equiv="Expires" content="0">
         <title> edit form</title>
          <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
-       
+        
         <style>
         * {
       box-sizing: border-box;
@@ -75,7 +86,8 @@ if(isset($_POST['submit'])){
 
     input[type="text"],
     textarea,
-    select {
+    select,
+    input[type="date"] {
       width: 100%;
       padding: 12px 15px;
       border: 1px solid #444;
@@ -90,7 +102,8 @@ if(isset($_POST['submit'])){
 
     input[type="text"]:focus,
     textarea:focus,
-    select:focus {
+    select:focus,
+    input[type="date"]:focus {
       border-color: #64b5f6;
       outline: none;
       background-color: #3d3d3d;
@@ -169,36 +182,75 @@ if(isset($_POST['submit'])){
         font-size: 14px;
       }
     }
+    .error-message {
+    color: #e74c3c; /* A strong red color */
+    font-size: 0.9em;
+    display: block; /* Ensures it's on a new line */
+    margin-top: 5px;
+}
   </style>
     </head>
     <body>  
       
-      <form action="" method="POST">
+      <form action="" method="POST" onsubmit="return validateForm()">
     <h2>Update Task</h2>
     Task Name:<br>
-    <input type="text" name="taskname"  value="<?php echo $row['taskname']; ?>"  required><br><br>
+    <input type="text" name="taskname" id="taskname" value="<?php echo htmlspecialchars($row['taskname']); ?>" required><br>
+    <span id="taskname-error" class="error-message"></span><br>
 
     Description:<br>
- <textarea name="description" id="description"><?php echo $row['description']; ?></textarea><br>
-
-
-    <!-- Voice Control Buttons -->
+    <textarea name="description" id="description" required><?php echo htmlspecialchars($row['description']); ?></textarea><br>
+    <span id="description-error" class="error-message"></span><br>
+    
     <button type="button" id="start-recording">🎙 Start Recording</button>
     <button type="button" id="pause-recording" disabled>⏸ Pause</button>
     <button type="button" id="stop-recording" disabled>⏹ Stop</button>
     <button type="button" id="speak-text">🔊 Speak Description</button><br><br>
+    
     <label for="status">Task Status:</label><br>
-  <select name="status" id="status">
-    <option value="Not Started" <?= $row['status'] == 'Not Started' ? 'selected' : '' ?>>Not Started</option>
-    <option value="In Progress" <?= $row['status'] == 'In Progress' ? 'selected' : '' ?>>In Progress</option>
-    <option value="Completed" <?= $row['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
-  </select>
+    <select name="status" id="status">
+        <option value="Not Started" <?= $row['status'] == 'Not Started' ? 'selected' : '' ?>>Not Started</option>
+        <option value="In Progress" <?= $row['status'] == 'In Progress' ? 'selected' : '' ?>>In Progress</option>
+        <option value="Completed" <?= $row['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
+    </select>
 <br><br>
+<label for="priority">Priority:</label><br>
+    <select name="priority" id="priority" required>
+      <option value="Low" <?= $row['priority'] == 'Low' ? 'selected' : '' ?>>Low</option>
+      <option value="Medium" <?= $row['priority'] == 'Medium' ? 'selected' : '' ?>>Medium</option>
+      <option value="High" <?= $row['priority'] == 'High' ? 'selected' : '' ?>>High</option>
+    </select><br><br>
+
+    <label for="due_date">Due Date:</label><br>
+    <input type="date" name="due_date" id="due_date" value="<?= htmlspecialchars($row['due_date']); ?>" required><br><br>
 
     <input type="submit" value="OK" name="submit">
   </form>
 
  <script>
+    function validateForm() {
+        // Clear any previous error messages
+        document.getElementById('taskname-error').textContent = '';
+        document.getElementById('description-error').textContent = '';
+
+        var taskname = document.getElementById('taskname').value.trim();
+        var description = document.getElementById('description').value.trim();
+        let isValid = true; // Use a flag to check overall validity
+
+        // Check if task name is empty
+        if (taskname === "") {
+            document.getElementById('taskname-error').textContent = "Task name cannot be empty.";
+            isValid = false;
+        }
+
+        // Check if description is empty
+        if (description === "") {
+            document.getElementById('description-error').textContent = "Description cannot be empty.";
+            isValid = false;
+        }
+
+        return isValid; // Return the flag's value
+    }
   const startButton = document.getElementById('start-recording');
   const pauseButton = document.getElementById('pause-recording');
   const stopButton = document.getElementById('stop-recording');
@@ -347,8 +399,6 @@ if(isset($_POST['submit'])){
 </script>
 
 
-        </form>
+      </form>
     </body>
 </html>
-
-

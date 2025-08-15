@@ -15,11 +15,19 @@ $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
     $taskname = $_POST['taskname'];
-    $description =  $_POST['description'];
-    $status =  $_POST['status'];
+    $description = $_POST['description'];
+    $status = $_POST['status'];
+    // Get the new priority and due date from the form
+    $priority = $_POST['priority'];
+    $due_date = $_POST['due_date'];
 
-    $sql = "INSERT INTO task (taskname, description, status, user_id) VALUES ('$taskname', '$description', '$status', '$user_id')";
-    $result = mysqli_query($conn, $sql);
+    // Updated SQL query to include the new fields
+    $sql = "INSERT INTO task (taskname, description, status, priority, due_date, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    // Using prepared statements for security
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "sssssi", $taskname, $description, $status, $priority, $due_date, $user_id);
+    $result = mysqli_stmt_execute($stmt);
 
     if (!$result) {
         echo mysqli_error($conn);
@@ -38,9 +46,9 @@ if (isset($_POST['submit'])) {
   <meta http-equiv="Expires" content="0">
   <title>Add Task with Voice Features</title>
     <link rel="icon"  type="image/png" href="../public/assets/images/checked.png">
- 
+  
   <style>
-   * {
+    * {
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -69,7 +77,8 @@ if (isset($_POST['submit'])) {
 
     input[type="text"],
     textarea,
-    select {
+    select,
+    input[type="date"] {
       width: 100%;
       padding: 12px 15px;
       border: 1px solid #444;
@@ -84,7 +93,8 @@ if (isset($_POST['submit'])) {
 
     input[type="text"]:focus,
     textarea:focus,
-    select:focus {
+    select:focus,
+    input[type="date"]:focus {
       border-color: #64b5f6;
       outline: none;
       background-color: #3d3d3d;
@@ -163,19 +173,26 @@ if (isset($_POST['submit'])) {
         font-size: 14px;
       }
     }
+    .error-message {
+      color: #e74c3c; /* A strong red color */
+      font-size: 0.9em;
+      display: block; /* Ensures it's on a new line */
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
 
-  <form action="" method="POST">
+  <form action="" method="POST" onsubmit="return validateForm()">
     <h2>Add Task</h2>
     Task Name:<br>
-    <input type="text" name="taskname" required><br><br>
+    <input type="text" name="taskname" id="taskname" required><br>
+      <span id="taskname-error" class="error-message"></span><br>
 
     Description:<br>
-    <textarea name="description" id="description" placeholder="Enter the contents here......."></textarea><br>
+    <textarea name="description" id="description" placeholder="Enter the contents here......." required></textarea><br>
+    <span id="description-error" class="error-message"></span><br>
 
-    <!-- Voice Control Buttons -->
     <button type="button" id="start-recording">🎙 Start Recording</button>
     <button type="button" id="pause-recording" disabled>⏸ Pause</button>
     <button type="button" id="stop-recording" disabled>⏹ Stop</button>
@@ -186,11 +203,44 @@ if (isset($_POST['submit'])) {
       <option value="In Progress">In Progress</option>
       <option value="Completed">Completed</option>
     </select><br><br>
+        <label for="priority">Priority:</label><br>
+    <select name="priority" id="priority" required>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select><br><br>
+
+    <label for="due_date">Due Date:</label><br>
+    <input type="date" name="due_date" id="due_date" required><br><br>
 
     <input type="submit" value="OK" name="submit">
   </form>
 
 <script>
+function validateForm() {
+        var taskname = document.getElementById('taskname').value.trim();
+        var description = document.getElementById('description').value.trim();
+        let isValid = true; // Use a flag to check overall validity
+
+        // Clear any previous error messages
+        document.getElementById('taskname-error').textContent = "";
+        document.getElementById('description-error').textContent = "";
+
+
+        // Check if task name is empty
+        if (taskname === "") {
+            document.getElementById('taskname-error').textContent = "Task name cannot be empty.";
+            isValid = false;
+        }
+
+        // Check if description is empty
+        if (description === "") {
+            document.getElementById('description-error').textContent = "Description cannot be empty.";
+            isValid = false;
+        }
+
+        return isValid; // Return the flag's value
+    }
   const startButton = document.getElementById('start-recording');
   const pauseButton = document.getElementById('pause-recording');
   const stopButton = document.getElementById('stop-recording');
@@ -337,7 +387,6 @@ if (isset($_POST['submit'])) {
     window.speechSynthesis.speak(utterance);
   });
 </script>
-
 
 
 </body>
