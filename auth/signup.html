@@ -131,6 +131,23 @@
         font-size: 0.9rem;
       }
     }
+     .error-message {
+      color: #e74c3c; /* A strong red color */
+      font-size: 0.9em;
+      display: block; /* Ensures it's on a new line */
+      margin-top: 5px;
+    }
+    #password-feedback{
+      position: relative;
+      bottom: 15px;
+    }
+    .valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}
   </style>
 </head>
 <body>
@@ -146,15 +163,21 @@
 
     <label for="pwd">Password</label>
     <input type="password" name="pwd" id="pwd" placeholder="At least 8 characters" required>
-
+    <span id="pwd" class="error-message"></span>
+    <div id="password-feedback">
+    <p id="length-check" class="invalid">Minimum 8 characters</p>
+    <p id="upper-check" class="invalid">At least 1 uppercase letter</p>
+    <p id="lower-check" class="invalid">At least 1 lowercase letter</p>
+    <p id="digit-check" class="invalid">At least 1 number</p>
+    <p id="special-check" class="invalid">At least 1 special character</p>
+</div>
     <div class="checkbox-container">
       <input type="checkbox" id="showPwd" onclick="togglePasswordVisibility()">
       <label for="showPwd">Show Password</label>
     </div>
-
     <label for="confirm_pwd">Confirm Password</label>
     <input type="password" name="confirm_pwd" id="confirm_pwd" placeholder="Re-enter password" required>
-
+    <span id="confirm_pwd" class="error-message"></span><br>
     <button type="submit" name="submit">Sign Up</button>
 
     <div class="login-link">
@@ -164,57 +187,86 @@
   </form>
 
   <script>
-    function togglePasswordVisibility() {
-      const pwdField = document.getElementById("pwd");
-      const confirmPwdField = document.getElementById("confirm_pwd");
-      const isVisible = pwdField.type === "text";
+// Show/Hide Password
+function togglePasswordVisibility() {
+    const pwdField = document.getElementById("pwd");
+    const confirmPwdField = document.getElementById("confirm_pwd");
+    const isVisible = pwdField.type === "text";
 
-      pwdField.type = isVisible ? "password" : "text";
-      confirmPwdField.type = isVisible ? "password" : "text";
-    }
+    pwdField.type = isVisible ? "password" : "text";
+    confirmPwdField.type = isVisible ? "password" : "text";
+}
 
-    function validateForm() {
-      const username = document.getElementById("username").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const pwd = document.getElementById("pwd").value;
-      const confirmPwd = document.getElementById("confirm_pwd").value;
+// Real-time Password Feedback
+const pwdInput = document.getElementById("pwd");
+const lengthCheck = document.getElementById("length-check");
+const upperCheck = document.getElementById("upper-check");
+const lowerCheck = document.getElementById("lower-check");
+const digitCheck = document.getElementById("digit-check");
+const specialCheck = document.getElementById("special-check");
 
-      if (!username || !email || !pwd || !confirmPwd) {
+pwdInput.addEventListener("input", () => {
+    const value = pwdInput.value;
+
+    lengthCheck.className = value.length >= 8 ? "valid" : "invalid";
+    upperCheck.className = /[A-Z]/.test(value) ? "valid" : "invalid";
+    lowerCheck.className = /[a-z]/.test(value) ? "valid" : "invalid";
+    digitCheck.className = /\d/.test(value) ? "valid" : "invalid";
+    specialCheck.className = /[^A-Za-z0-9]/.test(value) ? "valid" : "invalid";
+});
+
+// Form Validation
+function validateForm() {
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const pwd = document.getElementById("pwd").value;
+    const confirmPwd = document.getElementById("confirm_pwd").value;
+
+    // Clear previous errors
+    document.getElementById('username-error').textContent = "";
+    document.getElementById('email-error').textContent = "";
+    document.getElementById('password-error').textContent = "";
+    document.getElementById('confirm-error').textContent = "";
+
+    // Required fields
+    if (!username || !email || !pwd || !confirmPwd) {
         alert("Please fill in all fields.");
         return false;
-      }
-
-      if (!email.includes("@") || !email.includes(".")) {
-        alert("Please enter a valid email.");
-        return false;
-      }
-
-      if (pwd !== confirmPwd) {
-        alert("Passwords do not match.");
-        return false;
-      }
-
-      if (pwd.length < 8) {
-        alert("Password must be at least 8 characters long.");
-        return false;
-      }
-
-      let hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
-      for (let i = 0; i < pwd.length; i++) {
-        const ch = pwd[i];
-        if (ch >= 'A' && ch <= 'Z') hasUpper = true;
-        else if (ch >= 'a' && ch <= 'z') hasLower = true;
-        else if (ch >= '0' && ch <= '9') hasDigit = true;
-        else hasSpecial = true;
-      }
-
-      if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
-        alert("Password must include uppercase, lowercase, number, and special character.");
-        return false;
-      }
-
-      return true;
     }
+
+    // Email format check
+    if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById('email-error').textContent = "Please enter a valid email.";
+        return false;
+    }
+
+    // Password match check
+    if (pwd !== confirmPwd) {
+        document.getElementById('confirm-error').textContent = "Passwords do not match.";
+        return false;
+    }
+
+    // Password length check
+    if (pwd.length < 8) {
+        document.getElementById('password-error').textContent = "Password must be at least 8 characters long.";
+        return false;
+    }
+
+    // Password complexity check
+    let hasUpper = /[A-Z]/.test(pwd);
+    let hasLower = /[a-z]/.test(pwd);
+    let hasDigit = /\d/.test(pwd);
+    let hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+
+    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
+        document.getElementById('password-error').textContent =
+            "Password must include uppercase, lowercase, number, and special character.";
+        return false;
+    }
+
+    return true; // All checks passed
+}
+
   </script>
 </body>
 </html>
