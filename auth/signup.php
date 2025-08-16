@@ -6,17 +6,18 @@ if (isset($_POST['submit'])) {
     $email = trim($_POST['email']);
     $pwd = $_POST['pwd'];
     $confirm_pwd = $_POST['confirm_pwd'];
-
+    
     // ✅ Basic validations
     if (empty($username) || empty($email) || empty($pwd) || empty($confirm_pwd)) {
         echo "Please fill in all fields.";
         exit();
     }
-
     if ($pwd !== $confirm_pwd) {
         echo "Passwords do not match.";
         exit();
     }
+    $phash=password_hash($pwd,PASSWORD_DEFAULT);
+     
 
     // ✅ Check if email already exists
     $check = mysqli_query($conn, "SELECT * FROM login WHERE email = '$email'");
@@ -30,7 +31,7 @@ if (isset($_POST['submit'])) {
 
 
     // ✅ Insert user (you can hash password if needed)
-    $sql = "INSERT INTO login (username, email, pwd) VALUES ('$username', '$email', '$pwd')";
+    $sql = "INSERT INTO login (username, email, pwd) VALUES ('$username', '$email', '$phash')";
     if (mysqli_query($conn, $sql)) {
         header("Location: ../auth/login.html");
         exit();
@@ -38,4 +39,5 @@ if (isset($_POST['submit'])) {
         echo "Signup failed: " . mysqli_error($conn);
     }
 }
+
 ?>

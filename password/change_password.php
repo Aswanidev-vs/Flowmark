@@ -1,18 +1,22 @@
 <?php
 session_start();
 require "../config/config.php";
-if (!isset($_SESSION['username']) || !isset($_SESSION['pwd'])) {
-    header("Location: ../auth/login.php");
+// if (!isset($_SESSION['username']) || !isset($_SESSION['pwd'])) {
+if (!isset($_SESSION['username'])) {
+
+    header("Location: ../auth/login.html");
 }else{
     if(isset($_POST['submit'])){
         
         $cpass=$_POST['cpass'];
         $password = $_SESSION['pwd'];
-        if($cpass!=$password){
-            echo "Password does not match";
-        }else{
-            header("location:cpass.php");
-        }
+        if(password_verify($cpass, $password)){
+        // password correct
+        header("location:cpass.php");
+        exit();
+    } else {
+        echo "Password is incorrect";
+    }
     }else{
         echo mysqli_error($conn);
     }
