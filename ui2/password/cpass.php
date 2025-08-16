@@ -17,11 +17,9 @@ if (isset($_POST['submit'])) {
         window.location.href = 'cpass.php';
         </script>";
     }
-    $phash=password_hash($newPwd,PASSWORD_DEFAULT);
-
-    $update = "UPDATE login SET pwd = '$phash' WHERE email = '$email'";
+    $update = "UPDATE login SET pwd = '$newPwd' WHERE email = '$email'";
     if (mysqli_query($conn, $update)) {
-            $_SESSION['pwd'] = $phash; 
+            $_SESSION['pwd'] = $newPwd; 
         echo "<script>
         alert('password updated successfully.');
         window.location.href = '../tasks/Todo.php';
@@ -114,23 +112,6 @@ input[type="text"] {
 input[type="submit"]:hover {
   background-color: #222;
 }
-   .error-message {
-      color: #e74c3c; /* A strong red color */
-      font-size: 0.9em;
-      display: block; /* Ensures it's on a new line */
-      margin-top: 5px;
-    }
-    #password-feedback{
-      position: relative;
-      bottom: 15px;
-    }
-    .valid {
-    color: green;
-}
-
-.invalid {
-    color: red;
-}
 
     </style>
 </head>
@@ -141,14 +122,7 @@ input[type="submit"]:hover {
 
     <label for="newpass">New Password:</label>
     <input type="password" name="new_password" id="newpass" required>
-      
-   <div id="password-feedback">
-    <p id="length-check" class="invalid">Minimum 8 characters</p>
-    <p id="upper-check" class="invalid">At least 1 uppercase letter</p>
-    <p id="lower-check" class="invalid">At least 1 lowercase letter</p>
-    <p id="digit-check" class="invalid">At least 1 number</p>
-    <p id="special-check" class="invalid">At least 1 special character</p>
-</div>
+
     <label for="cpass">Confirm Password:</label>
     <input type="password" name="confirm_password" id="cpass" required>
 
@@ -171,66 +145,41 @@ function togglePasswordVisibility() {
         confirmPwdField.type = "password";
     }
 }
-const pwdInput = document.getElementById("newpass");
-const lengthCheck = document.getElementById("length-check");
-const upperCheck = document.getElementById("upper-check");
-const lowerCheck = document.getElementById("lower-check");
-const digitCheck = document.getElementById("digit-check");
-const specialCheck = document.getElementById("special-check");
-
-pwdInput.addEventListener("input", () => {
-    const value = pwdInput.value;
-
-    lengthCheck.className = value.length >= 8 ? "valid" : "invalid";
-    upperCheck.className = /[A-Z]/.test(value) ? "valid" : "invalid";
-    lowerCheck.className = /[a-z]/.test(value) ? "valid" : "invalid";
-    digitCheck.className = /\d/.test(value) ? "valid" : "invalid";
-    specialCheck.className = /[^A-Za-z0-9]/.test(value) ? "valid" : "invalid";
-});
 function validateForm() {
-    const pwd = document.getElementById("newpass").value;
-    const confirmPwd = document.getElementById("cpass").value; // ✅ fixed ID
+      const pwd = document.getElementById("newpass").value;
+      const confirmPwd = document.getElementById("cpass").value;
 
-    // Clear previous errors
-    const passwordError = document.getElementById('password-error');
-    const confirmError = document.getElementById('confirm-error');
-    if (passwordError) passwordError.textContent = "";
-    if (confirmError) confirmError.textContent = "";
-
-    // Required fields
-    if (!pwd || !confirmPwd) {
+      if(!pwd || !confirmPwd) {
         alert("Please fill in all fields.");
         return false;
-    }
-
-    // Password match check
-    if (pwd !== confirmPwd) {
-        if (confirmError) confirmError.textContent = "Passwords do not match.";
+      }
+      if (pwd !== confirmPwd) {
+        alert("Passwords do not match.");
         return false;
-    }
+      }
 
-    // Password length check
-    if (pwd.length < 8) {
-        if (passwordError) passwordError.textContent = "Password must be at least 8 characters long.";
+      if (pwd.length < 8) {
+        alert("Password must be at least 8 characters long.");
         return false;
-    }
+      }
 
-    // Password complexity check
-    let hasUpper = /[A-Z]/.test(pwd);
-    let hasLower = /[a-z]/.test(pwd);
-    let hasDigit = /\d/.test(pwd);
-    let hasSpecial = /[^A-Za-z0-9]/.test(pwd);
+      let hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
 
-    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
-        if (passwordError) passwordError.textContent =
-            "Password must include uppercase, lowercase, number, and special character.";
+      for (let i = 0; i < pwd.length; i++) {
+        const ch = pwd[i];
+        if (ch >= 'A' && ch <= 'Z') hasUpper = true;
+        else if (ch >= 'a' && ch <= 'z') hasLower = true;
+        else if (ch >= '0' && ch <= '9') hasDigit = true;
+        else hasSpecial = true;
+      }
+
+      if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
+        alert("Password must include uppercase, lowercase, number, and special character.");
         return false;
+      }
+
+      return true; // allow form to submit
     }
-
-    return true; // All checks passed
-}
-
-
 </script>
 
 </body>

@@ -233,7 +233,7 @@ label[for="fileinput"]:active {
 }
 
 .full-line {
-  /* width: 100vw; */
+  width: 100vw;
   height: 2px;
   background-color: #515050;
   margin: 20px 0;
@@ -332,8 +332,6 @@ label[for="fileinput"]:active {
   border-radius: 12px;
   max-width: 800px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* position: relative;
-  bottom: 100px; */
 }
 
 .filter-form form {

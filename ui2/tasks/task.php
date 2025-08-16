@@ -342,7 +342,7 @@ function validateForm() {
       startButton.disabled = true;
       pauseButton.disabled = true;
       stopButton.disabled = true;
-      alert("⚠️ Speech-to-Text (STT) is not supported in your browser.\n\nPlease use the latest version of Google Chrome for this feature.");
+      alert("⚠ Speech-to-Text (STT) is not supported in your browser.\n\nPlease use the latest version of Google Chrome for this feature.");
     }
   });
 

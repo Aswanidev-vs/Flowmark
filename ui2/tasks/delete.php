@@ -7,6 +7,7 @@ if(isset($_GET['taskid'])){
    if($result) {
 
    header("location:Todo.php");
+   exit();
     }
     else{
         echo mysqli_error($conn);

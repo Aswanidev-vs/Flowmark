@@ -5,7 +5,7 @@ if (isset($_POST['submit'])) {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $pwd = $_POST['pwd'];
-    $confirm_pwd = $_POST['confirm_pwd'];
+    $confirm_pwd = $_POST['confirmPwd'];
     
     // ✅ Basic validations
     if (empty($username) || empty($email) || empty($pwd) || empty($confirm_pwd)) {

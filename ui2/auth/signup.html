@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+<link rel="icon" type="image/png" href="../public/assets/images/checked.png">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../public/assets/images/bg-dark.jpg') no-repeat center center/cover;
+}
+
+.container {
+    width: 400px;
+    padding: 2rem;
+    border-radius: 20px;
+    background: linear-gradient(45deg, black, #234);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+}
+
+input::placeholder { color: #ccc; }
+
+.submit {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit:hover { background: rgba(255, 255, 255, 0.2); }
+
+a { color: #fff; text-decoration: none; font-size: 0.9rem; }
+
+.signup-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    display: block;
+}
+
+.valid {
+    color: #4cd137;
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    display: block;
+}
+
+#showPwd { cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="container">
+    <form class="form" id="signupForm" method="POST" action="signup.php">
+        <p class="form-title">Create your account</p>
+
+        <div class="input-container">
+            <input type="text" name="username" id="username" placeholder="Enter username">
+            <span id="usernameMessage"></span>
+        </div>
+
+        <div class="input-container">
+            <input type="email" name="email" id="email" placeholder="Enter email">
+            <span id="emailMessage"></span>
+        </div>
+
+        <div class="input-container">
+            <input type="password" name="pwd" id="pwd" placeholder="Enter password">
+            <span id="pwdMessage"></span>
+        </div>
+
+        <div class="input-container">
+            <input type="password" name="confirmPwd" id="confirmPwd" placeholder="Confirm password">
+            <span id="confirmPwdMessage"></span>
+        </div>
+
+        <div style="margin-top: 0.3rem;">
+            <input type="checkbox" id="showPwd" onclick="togglePasswordVisibility()">
+            <label for="showPwd">Show Passwords</label>
+        </div>
+
+        <button type="submit" class="submit" name="submit" style="margin-top: 15px;">
+            Sign Up
+        </button>
+
+        <p class="signup-link">
+            Already have an account? <a href="login.html">Log in</a>
+        </p>
+    </form>
+</div>
+
+<script>
+function togglePasswordVisibility() {
+    const pwdField = document.getElementById("pwd");
+    const confirmPwdField = document.getElementById("confirmPwd");
+    const type = pwdField.type === "password" ? "text" : "password";
+    pwdField.type = type;
+    confirmPwdField.type = type;
+}
+
+// Live validation
+const usernameInput = document.getElementById("username");
+const emailInput = document.getElementById("email");
+const pwdInput = document.getElementById("pwd");
+const confirmPwdInput = document.getElementById("confirmPwd");
+
+const usernameMessage = document.getElementById("usernameMessage");
+const emailMessage = document.getElementById("emailMessage");
+const pwdMessage = document.getElementById("pwdMessage");
+const confirmPwdMessage = document.getElementById("confirmPwdMessage");
+
+usernameInput.addEventListener("input", () => {
+    const username = usernameInput.value.trim();
+    if (!username) {
+        usernameMessage.textContent = "Username cannot be empty.";
+        usernameMessage.className = "error";
+    } else {
+        usernameMessage.textContent = "Looks good!";
+        usernameMessage.className = "valid";
+    }
+});
+
+emailInput.addEventListener("input", () => {
+    const email = emailInput.value.trim();
+    if (!email) {
+        emailMessage.textContent = "Email is required.";
+        emailMessage.className = "error";
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        emailMessage.textContent = "Enter a valid email.";
+        emailMessage.className = "error";
+    } else {
+        emailMessage.textContent = "Email looks good!";
+        emailMessage.className = "valid";
+    }
+});
+
+pwdInput.addEventListener("input", () => {
+    const pwd = pwdInput.value.trim();
+    // ✅ FIXED REGEX
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+
+    if (!pwd) {
+        pwdMessage.textContent = "Password is required.";
+        pwdMessage.className = "error";
+    } else if (!regex.test(pwd)) {
+        pwdMessage.textContent = "Password must be 8+ characters, include uppercase, lowercase, number, special symbol.";
+        pwdMessage.className = "error";
+    } else {
+        pwdMessage.textContent = "Password looks strong!";
+        pwdMessage.className = "valid";
+    }
+
+    validateConfirmPassword();
+});
+
+confirmPwdInput.addEventListener("input", validateConfirmPassword);
+
+function validateConfirmPassword() {
+    const pwd = pwdInput.value.trim();
+    const confirmPwd = confirmPwdInput.value.trim();
+    if (!confirmPwd) {
+        confirmPwdMessage.textContent = "Please confirm password.";
+        confirmPwdMessage.className = "error";
+    } else if (pwd !== confirmPwd) {
+        confirmPwdMessage.textContent = "Passwords do not match.";
+        confirmPwdMessage.className = "error";
+    } else {
+        confirmPwdMessage.textContent = "Passwords match!";
+        confirmPwdMessage.className = "valid";
+    }
+}
+
+// Prevent form submission if errors exist
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    if (
+        usernameMessage.className === "error" ||
+        emailMessage.className === "error" ||
+        pwdMessage.className === "error" ||
+        confirmPwdMessage.className === "error"
+    ) {
+        event.preventDefault();
+    }
+});
+</script>
+</body>
+</html>

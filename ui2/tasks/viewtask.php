@@ -123,6 +123,15 @@ body {
         <label>Status:</label>
         <p><?php echo $task['status']; ?></p>
     </div>
+     <div class="task-detail">
+        <label>Priority:</label>
+        <p><?php echo $task['priority']; ?></p>
+    </div>
+ <div class="task-detail">
+        <label>Due_date</label>
+        <p><?php echo $task['due_date']; ?></p>
+    </div>
+
 
     <a href="Todo.php" class="back-btn">← Back to Tasks</a>
 </div>
