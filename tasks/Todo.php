@@ -364,6 +364,41 @@ margin-top: 16px;
       <img src="../public/assets/images/profile.png" alt="Logo" />
     </div>
     <h1>FlowMark</h1>
+    <div class="ui_switch">
+      <a href="../../ui2.php">
+        <h2>UI-2</h2>
+      </a>
+    </div>
+    <style>
+      /* Container for the UI switch link */
+.ui_switch {
+  display: inline-block; /* Allows the container to size to its content */
+  margin: 20px; /* Adds space around the container */
+}
+
+/* Styling for the link itself to make it look like a button */
+.ui_switch a {
+  background-color: #555; /* A dark gray background */
+  color: white; /* White text color */
+  text-decoration: none; /* Removes the default underline from the link */
+  padding: 10px 20px; /* Adds padding inside the button */
+  border-radius: 5px; /* Rounds the corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  display: block; /* Makes the entire link area clickable */
+}
+
+/* Hover effect */
+.ui_switch a:hover {
+  background-color: #777; /* Lightens the background on hover */
+}
+
+/* Styling for the text inside the link */
+.ui_switch h2 {
+  margin: 0; /* Removes default margin from the heading */
+  font-size: 1.2em; /* Sets a reasonable font size */
+  font-weight: normal; /* Makes the text not bold */
+}
+    </style>
     <div class="setting">
       <button class="setting-btn" onclick="toggleSetting()">
         <img id="settingIconImg" src="../public/assets/images/settings.png" alt="Settings" />

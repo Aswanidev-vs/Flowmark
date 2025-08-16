@@ -14,28 +14,29 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['submit'])) {
-    $taskname = $_POST['taskname'];
-    $description = $_POST['description'];
-    $status = $_POST['status'];
-    // Get the new priority and due date from the form
-    $priority = $_POST['priority'];
-    $due_date = $_POST['due_date'];
+    // Escape inputs to prevent SQL injection
+    $taskname    = mysqli_real_escape_string($conn, $_POST['taskname']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $status      = mysqli_real_escape_string($conn, $_POST['status']);
+    $priority    = mysqli_real_escape_string($conn, $_POST['priority']);
+    $due_date    = mysqli_real_escape_string($conn, $_POST['due_date']);
+    $user_id     = (int)$user_id; // force integer for safety
 
-    // Updated SQL query to include the new fields
-    $sql = "INSERT INTO task (taskname, description, status, priority, due_date, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-    
-    // Using prepared statements for security
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sssssi", $taskname, $description, $status, $priority, $due_date, $user_id);
-    $result = mysqli_stmt_execute($stmt);
+    // Insert query (without prepared statement)
+    $sql = "INSERT INTO task (taskname, description, status, priority, due_date, user_id) 
+            VALUES ('$taskname', '$description', '$status', '$priority', '$due_date', $user_id)";
+
+    $result = mysqli_query($conn, $sql);
 
     if (!$result) {
         echo mysqli_error($conn);
     } else {
         header("Location: Todo.php");
+        exit();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
