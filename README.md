@@ -1,155 +1,114 @@
-# 📋 Flowmark - PHP To-Do List App
+# 📋 Flowmark UI2
 
-**Flowmark** is a responsive, user-friendly To-Do List web application built using PHP. It includes robust task management, user authentication, voice-enabled input, and account settings features — all wrapped in a clean, mobile-first UI.
+**UI2** is an alternate user interface for the Flowmark PHP To-Do List application. It provides all core features of Flowmark, including user authentication, task management, account settings, and password management, with a dedicated asset directory for styles, scripts, and images.
 
 ---
 
 ## 🚀 Features
 
-- ✅ **User Authentication** (Login, Signup, Logout)
-- 🗂️ **Task Dashboard** (Add, View, Edit, Delete, Filter Tasks)
-- 🗣️ **Voice Support**  
-  Use **speech-to-text** to add/edit tasks and **text-to-speech** to listen to them.
-- 🔐 **Account Management**  
-  Change username, update or reset password, and delete your account securely.
-- 📱 **Responsive UI**  
-  Clean layout that works well on desktops, tablets, and mobile devices.
+- **User Authentication**: Login, Signup, Logout
+- **Task Management**: Add, View, Edit, Delete, Filter Tasks
+- **Account Settings**: Update user info, change or reset password, delete account
+- **Password Management**: Forgot/reset password, change password
+- **Chatbot**: Task-related chatbot support
+- **Responsive UI**: Mobile-friendly design
+- **Assets**: Custom CSS, JS, and images
 
 ---
 
-## 📁 Project Structure
+## 📁 Folder Structure
 
 ```bash
-Flowmark/
-├── home.html                     # ✅ Entry point (public landing page)
+ui2/
+├── home.html
+├── README.md
+├── account/
+│   ├── current_password.php
+│   ├── delete_account.php
+│   └── update_user.php
+├── auth/
+│   ├── about.html
+│   ├── home.php
+│   ├── login.html
+│   ├── login.php
+│   ├── logout.php
+│   ├── signup.html
+│   └── signup.php
 ├── config/
 │   └── config.php
+├── password/
+│   ├── change_password.php
+│   ├── cpass.php
+│   ├── forgot_password.php
+│   ├── reset_password.php
+│   ├── save_new_password.php
+│   └── update_password.php
 ├── public/
 │   └── assets/
 │       ├── css/
 │       │   ├── styles.css
 │       │   └── todo.css
+│       ├── images/
+│       │   ├── android-chrome-192x192.png
+│       │   ├── checked.png
+│       │   ├── checkmark.png
+│       │   ├── img1.jpg ... img5.jpg
+│       │   ├── logo.jpg
+│       │   ├── profile.png
+│       │   ├── settings.png
+│       │   └── tick.png
 │       ├── js/
 │       │   └── todo.js
-│       └── images/
-│           ├── img1.jpg ... img5.jpg
-│           ├── logo.jpg
-│           └── settings.png
-├── auth/
-│   ├── login.html
-│   ├── login.php
-│   ├── signup.html
-│   ├── signup.php
-│   ├── logout.php
-│   └── home.php
-├── password/
-│   ├── forgot_password.php
-│   ├── reset_password.php
-│   ├── update_password.php
-│   ├── save_new_password.php
-│   ├── change_password.php
-│   └── cpass.php
-├── account/
-│   ├── update_user.php
-│   ├── delete_account.php
-│   └── current_password.php
+│       └── video/
+│           └── tutorial.mp4
 ├── tasks/
-│   ├── Todo.php
-│   ├── task.php
-│   ├── update.php
-│   ├── viewtask.php
+│   ├── chatbot.php
 │   ├── delete.php
-│   └── display.php
-└── .vscode/
+│   ├── display.php
+│   ├── task.php
+│   ├── Todo.php
+│   ├── update.php
+│   └── viewtask.php
 ```
+
+---
+
 ## 🛠️ Setup Instructions
 
-### 1. Clone or Download
-Clone or download this repo into your `htdocs/` folder (if using XAMPP).
+1. **Configure Database**
+   - Edit [`config/config.php`](ui2/config/config.php) with your MySQL credentials.
 
-### 2. Database Setup
-- Open [phpMyAdmin](http://localhost/phpmyadmin)
-- Create a database named `todo`
-- Create the following tables:
+2. **Database Tables**
+   - Use the following tables (see main project README for details):
+     - `login`: Stores user accounts
+     - `task`: Stores user tasks
 
-### Table: `login`
-
-| Field     | Type    | Description          |
-|-----------|---------|----------------------|
-| uid       | INT     | Primary Key          |
-| username  | VARCHAR | User's display name  |
-| email     | VARCHAR | Email ID (unique)    |
-| pwd       | VARCHAR | Password (plaintext 🔴) |
-
-### Table: `task`
-
-| Field        | Type     | Description                  |
-|--------------|----------|------------------------------|
-| taskid       | INT      | Primary Key                  |
-| taskname     | VARCHAR  | Task title                   |
-| description  | TEXT     | Task details                 |
-| status       | VARCHAR  | "pending" or "done"          |
-| user_id      | INT      | Foreign Key to `login.uid`   |
-| created_at   | DATETIME | Timestamp                    |
-| updated_at   | DATETIME | Timestamp                    |
-
-### 3. Configure Database
-- Open [`config/config.php`](config/config.php)
-- Update the database credentials to match your local MySQL setup
-
-### 4. Run Application
-- Start Apache and MySQL in XAMPP
-- Visit the app in your browser:  
-  👉 [http://localhost/Flowmark/home.html](http://localhost/Flowmark/home.html)
+3. **Run the App**
+   - Place the `ui2` folder in your web server directory (e.g., `htdocs/` for XAMPP).
+   - Access via browser:  
+     `http://localhost/Flowmark/ui2/home.html`  
+     or use the entry point in [`ui2.php`](../ui2.php).
 
 ---
 
 ## 🔐 Security Notes
 
-- ⚠️ **Passwords are stored in plain text.**  
-  Use `password_hash()` and `password_verify()` in production.
-
-- ⚠️ **SQL Queries are not parameterized.**  
-  Use **prepared statements** to prevent SQL injection.
+- Passwords may be stored in plain text.  
+  **Use `password_hash()` and `password_verify()` in production.**
+- SQL queries may not be parameterized.  
+  **Use prepared statements to prevent SQL injection.**
 
 ---
 
-## 📂 Open Files (Click to View)
+## 📂 Key Files
 
-### 🔧 Core
-- [`home.html`](home.html)
-- [`config/config.php`](config/config.php)
+- **Entry Point:** [`home.html`](ui2/home.html)
+- **Authentication:** [`auth/login.php`](ui2/auth/login.php), [`auth/signup.php`](ui2/auth/signup.php)
+- **Task Manager:** [`tasks/Todo.php`](ui2/tasks/Todo.php)
+- **Account Settings:** [`account/update_user.php`](ui2/account/update_user.php)
+- **Password Management:** [`password/forgot_password.php`](ui2/password/forgot_password.php)
+- **Assets:** [`public/assets/css/styles.css`](ui2/public/assets/css/styles.css), [`public/assets/js/todo.js`](ui2/public/assets/js/todo.js)
 
-### 🔐 Authentication
-- [`auth/signup.html`](auth/signup.html)
-- [`auth/signup.php`](auth/signup.php)
-- [`auth/login.html`](auth/login.html)
-- [`auth/login.php`](auth/login.php)
-- [`auth/logout.php`](auth/logout.php)
-- [`auth/home.php`](auth/home.php)
+---
 
-### 🗝️ Password Management
-- [`password/forgot_password.php`](password/forgot_password.php)
-- [`password/reset_password.php`](password/reset_password.php)
-- [`password/update_password.php`](password/update_password.php)
-- [`password/save_new_password.php`](password/save_new_password.php)
-- [`password/change_password.php`](password/change_password.php)
-- [`password/cpass.php`](password/cpass.php)
-
-### 👤 Account Settings
-- [`account/update_user.php`](account/update_user.php)
-- [`account/delete_account.php`](account/delete_account.php)
-- [`account/current_password.php`](account/current_password.php)
-
-### ✅ Task Manager
-- [`tasks/Todo.php`](tasks/Todo.php)
-- [`tasks/task.php`](tasks/task.php)
-- [`tasks/update.php`](tasks/update.php)
-- [`tasks/viewtask.php`](tasks/viewtask.php)
-- [`tasks/delete.php`](tasks/delete.php)
-- [`tasks/display.php`](tasks/display.php)
-
-### 🎨 Styles & Scripts
-- [`public/assets/css/styles.css`](public/assets/css/styles.css)
-- [`public/assets/css/todo.css`](public/assets/css/todo.css)
-- [`public/assets/js/todo.js`](public/assets/js/todo.js)
+For more details, see the main [Flowmark README](../README.md)
