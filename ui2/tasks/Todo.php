@@ -405,8 +405,9 @@ if ($rp) {
     <style>
       /* Container for the UI switch link */
 .ui_switch {
-  display: inline-block; /* Allows the container to size to its content */
   margin: 20px; /* Adds space around the container */
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Styling for the link itself to make it look like a button */
@@ -418,6 +419,10 @@ if ($rp) {
   border-radius: 5px; /* Rounds the corners */
   transition: background-color 0.3s ease; /* Smooth transition for hover effect */
   display: block; /* Makes the entire link area clickable */
+  position: absolute;
+        left: 80%;
+        bottom: 25px;
+
 }
 
 /* Hover effect */

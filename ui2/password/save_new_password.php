@@ -16,7 +16,8 @@ if (isset($_POST['submit'])) {
         echo "Passwords do not match.";
         exit();
     }
-    $update = "UPDATE login SET pwd = '$newPwd' WHERE email = '$email'";
+      $phash=password_hash($newPwd,PASSWORD_DEFAULT);
+    $update = "UPDATE login SET pwd = '$phash' WHERE email = '$email'";
     if (mysqli_query($conn, $update)) {
         unset($_SESSION['reset_email']);
         echo "<script>

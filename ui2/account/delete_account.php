@@ -27,9 +27,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $user_id = $row['uid'];
     $stored_pwd = $row['pwd'];
-
-    // Step 2: Match entered password with stored password
-    if ($entered_pwd === $stored_pwd) {
+    if(password_verify($entered_pwd,$stored_pwd)){
+    
         // Step 3: Delete tasks
         $deleteTasksQuery = "DELETE FROM task WHERE user_id='$user_id'";
         $deleteTasksResult = mysqli_query($conn, $deleteTasksQuery);
@@ -52,8 +51,9 @@ exit();
                 alert('Failed to delete account!');
                 window.location.href='../tasks/Todo.php';
             </script>";
-        }
-    } else {
+            }
+       
+    }else {
         echo "<script>
             alert('Incorrect password!');
             window.location.href='../account/current_password.php';
